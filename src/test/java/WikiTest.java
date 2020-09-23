@@ -27,6 +27,5 @@ public class WikiTest {
             array = entryObject.getAsJsonArray("revisions");
         }
         Assert.assertEquals(3, array.size());
-        System.out.println(array);
     }
 }
