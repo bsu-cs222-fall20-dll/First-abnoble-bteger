@@ -1,2 +1,3 @@
-This is a repository for Aric's and Ben's project 1 for CS 222!
-Added by Ben Eger.
+This is a repository for CS 222 project 1.
+The project allows a user to get the most recent viewers and editors of a Wiki page. 
+Created by Ben Eger and Aric Noble. 
