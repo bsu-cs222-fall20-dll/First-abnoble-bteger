@@ -16,9 +16,8 @@ public class RevisionParserTest {
     public void testParse(){
         RevisionParser parser = new RevisionParser();
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        JsonArray editorsAndTimeStampsArray = parser.parse(sampleInputStream);
-        Assertions.assertNotNull(editorsAndTimeStampsArray);
-        System.out.println(editorsAndTimeStampsArray);
+        String mostRecentEditor = parser.parse(sampleInputStream);
+        Assertions.assertEquals("\"Neveselbert\"", mostRecentEditor);
     }
 
 
@@ -39,7 +38,6 @@ public class RevisionParserTest {
         jsonArray.add(sampleUser3);
 
         ArrayList<String> userData = parser.convert(jsonArray);
-        System.out.println(userData.get(0));
         Assertions.assertEquals("\"Josh\"", userData.get(0));
         Assertions.assertEquals("\"Ben\"", userData.get(1));
         Assertions.assertEquals("\"Sam\"", userData.get(2));
@@ -47,7 +45,7 @@ public class RevisionParserTest {
 
 
     @Test
-    public void testJSON(){
+    public void testJSON() {
         JsonParser parser = new JsonParser();
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Reader reader = new InputStreamReader(inputStream);
@@ -55,7 +53,7 @@ public class RevisionParserTest {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray array = null;
-        for (Map.Entry<String,JsonElement> entry: pages.entrySet()){
+        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             array = entryObject.getAsJsonArray("revisions");
         }
@@ -63,8 +61,6 @@ public class RevisionParserTest {
         String user1 = array.get(0).getAsJsonObject().get("user").toString();
         ArrayList<String> editorsAndTimeStampsArray = new ArrayList<>();
         editorsAndTimeStampsArray.add(user1);
-
-        System.out.println(editorsAndTimeStampsArray);
     }
 
     @Test
@@ -75,7 +71,6 @@ public class RevisionParserTest {
         Scanner myReader = new Scanner(sampleJson2);
         while(myReader.hasNextLine()) {
             String data = myReader.nextLine();
-            System.out.println(data);
         }
         myReader.close();
     }

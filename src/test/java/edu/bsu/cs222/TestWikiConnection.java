@@ -19,7 +19,6 @@ public class TestWikiConnection {
         HttpURLConnection con = (HttpURLConnection) myUrl.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
-        System.out.println(con.getResponseCode());
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
@@ -28,6 +27,5 @@ public class TestWikiConnection {
         }
         in.close();
         con.disconnect();
-        System.out.println(content);
     }
 }

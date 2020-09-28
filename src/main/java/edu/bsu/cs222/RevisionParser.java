@@ -13,18 +13,20 @@ import java.util.Map;
 public class RevisionParser {
     private JsonParser parser = new JsonParser();
 
-    public JsonArray parse(InputStream json) {
-        Reader reader = new InputStreamReader(json);
+    public String parse(InputStream jsonInputStream) {
+        Reader reader = new InputStreamReader(jsonInputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray array = null;
+        JsonArray jsonArray = null;
         for (Map.Entry<String,JsonElement> entry: pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("revisions");
+            jsonArray = entryObject.getAsJsonArray("revisions");
         }
 
-        return array;
+        ArrayList<String> newArray = convert(jsonArray);
+        String mostRecentEditor = newArray.get(0);
+        return mostRecentEditor;
     }
 
     public ArrayList<String> convert(JsonArray jsonArray) {
