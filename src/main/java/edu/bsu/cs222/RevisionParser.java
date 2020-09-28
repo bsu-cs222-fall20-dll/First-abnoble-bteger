@@ -33,6 +33,8 @@ public class RevisionParser {
         ArrayList<String> userData = new ArrayList<>();
         for (JsonElement user: jsonArray) {
             userData.add(user.getAsJsonObject().get("user").toString());
+            userData.add(user.getAsJsonObject().get("timestamp").toString());
+            // .toString method returns strings in the format of "\"Bteger\""
         }
         return userData;
     }

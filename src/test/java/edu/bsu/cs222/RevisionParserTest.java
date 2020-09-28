@@ -8,16 +8,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
 
 public class RevisionParserTest {
+
     @Test
     public void testParse(){
         RevisionParser parser = new RevisionParser();
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         Revision mostRecentEditor = parser.parse(sampleInputStream);
-        Assertions.assertNotNull(mostRecentEditor);
+        Assertions.assertEquals("\"Neveselbert\"", mostRecentEditor.getUser());
+        Assertions.assertEquals("\"2020-08-  17T21:54:47Z\"", mostRecentEditor.getTimeStamp());
     }
 
 
@@ -27,10 +27,13 @@ public class RevisionParserTest {
 
         JsonObject sampleUser = new JsonObject();
         sampleUser.add("user", new JsonPrimitive("Josh"));
+        sampleUser.add("timestamp", new JsonPrimitive("123"));
         JsonObject sampleUser2 = new JsonObject();
         sampleUser2.add("user", new JsonPrimitive("Ben"));
+        sampleUser2.add("timestamp", new JsonPrimitive("456"));
         JsonObject sampleUser3 = new JsonObject();
         sampleUser3.add("user", new JsonPrimitive("Sam"));
+        sampleUser3.add("timestamp", new JsonPrimitive("789"));
 
         JsonArray jsonArray = new JsonArray();
         jsonArray.add(sampleUser);
@@ -39,39 +42,10 @@ public class RevisionParserTest {
 
         ArrayList<String> userData = parser.convert(jsonArray);
         Assertions.assertEquals("\"Josh\"", userData.get(0));
-        Assertions.assertEquals("\"Ben\"", userData.get(1));
-        Assertions.assertEquals("\"Sam\"", userData.get(2));
-    }
-
-
-    @Test
-    public void testJSON() {
-        JsonParser parser = new JsonParser();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        Reader reader = new InputStreamReader(inputStream);
-        JsonElement rootElement = parser.parse(reader);
-        JsonObject rootObject = rootElement.getAsJsonObject();
-        JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray array = null;
-        for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
-            JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("revisions");
-        }
-
-        String user1 = array.get(0).getAsJsonObject().get("user").toString();
-        ArrayList<String> editorsAndTimeStampsArray = new ArrayList<>();
-        editorsAndTimeStampsArray.add(user1);
-    }
-
-    @Test
-    public void readJSONAsFileObj() throws FileNotFoundException {
-        File sampleJson = new File("/Users/beneger/CodeProjects/" +
-                "Java/FirstProject-Aric-Ben/src/test/resources/sample.json");
-        File sampleJson2 = new File(getClass().getClassLoader().getResource("sample.json").getFile());
-        Scanner myReader = new Scanner(sampleJson2);
-        while(myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-        }
-        myReader.close();
+        Assertions.assertEquals("\"123\"", userData.get(1));
+        Assertions.assertEquals("\"Ben\"", userData.get(2));
+        Assertions.assertEquals("\"456\"", userData.get(3));
+        Assertions.assertEquals("\"Sam\"", userData.get(4));
+        Assertions.assertEquals("\"789\"", userData.get(5));
     }
 }
