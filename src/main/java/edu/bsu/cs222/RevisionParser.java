@@ -13,7 +13,7 @@ import java.util.Map;
 public class RevisionParser {
     private JsonParser parser = new JsonParser();
 
-    public String parse(InputStream jsonInputStream) {
+    public Revision parse(InputStream jsonInputStream) {
         Reader reader = new InputStreamReader(jsonInputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
@@ -25,7 +25,7 @@ public class RevisionParser {
         }
 
         ArrayList<String> newArray = convert(jsonArray);
-        String mostRecentEditor = newArray.get(0);
+        Revision mostRecentEditor = new Revision(newArray.get(0), newArray.get(1));
         return mostRecentEditor;
     }
 
