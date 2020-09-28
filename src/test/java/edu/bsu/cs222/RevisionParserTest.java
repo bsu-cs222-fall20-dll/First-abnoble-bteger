@@ -15,11 +15,9 @@ public class RevisionParserTest {
     public void testParse(){
         RevisionParser parser = new RevisionParser();
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        Revision mostRecentEditor = parser.parse(sampleInputStream);
-        Assertions.assertEquals("\"Neveselbert\"", mostRecentEditor.getUser());
-        Assertions.assertEquals("\"2020-08-  17T21:54:47Z\"", mostRecentEditor.getTimeStamp());
+        ArrayList<Revision> revisions = parser.parse(sampleInputStream);
+        Assertions.assertEquals(3, revisions.size());
     }
-
 
     @Test
     public void testConvertJsonArray() {
