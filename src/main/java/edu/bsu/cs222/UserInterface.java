@@ -19,10 +19,6 @@ public class UserInterface {
         }
     }
 
-    public void showNoNetworkConnection() {
-        System.out.println("A network connection could not be established with Wikipedia");
-    }
-
     public void showRedirection(String original, String redirected) {
         System.out.printf("Search was redirected from %s to %s\n", original, redirected);
         System.out.println();

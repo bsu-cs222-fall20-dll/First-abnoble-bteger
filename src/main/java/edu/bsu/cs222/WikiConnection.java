@@ -14,8 +14,7 @@ public class WikiConnection {
         HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
-        InputStream inputStream = connection.getInputStream();
-        return inputStream;
+        return connection.getInputStream();
     }
 
     public URL generateHTTPRequest(String search) throws MalformedURLException {

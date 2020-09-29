@@ -7,7 +7,6 @@ import java.io.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class RevisionParserTest {
@@ -50,7 +49,7 @@ public class RevisionParserTest {
     }
 
     @Test
-    public void testCheckIsRedirected() throws IOException {
+    public void testCheckIsRedirected() {
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         String redirectedSearch = parser.checkIsRedirected(sampleInputStream);
         Assertions.assertEquals("Frank Zappa", redirectedSearch);

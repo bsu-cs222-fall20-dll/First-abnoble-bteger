@@ -1,19 +1,19 @@
 package edu.bsu.cs222;
 
 public class Revision {
-    private String user;
-    private String timeStamp;
+    private final String USER;
+    private final String TIMESTAMP;
 
     public Revision(String user, String timeStamp) {
-        this.user = user;
-        this.timeStamp = timeStamp;
+        this.USER = user;
+        this.TIMESTAMP = timeStamp;
     }
 
     public String getUser() {
-        return user;
+        return USER;
     }
 
     public String getTimeStamp() {
-        return timeStamp;
+        return TIMESTAMP;
     }
 }

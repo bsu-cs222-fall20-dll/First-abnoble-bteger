@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class RevisionParser {
-    private JsonParser parser = new JsonParser();
+    private final JsonParser parser = new JsonParser();
 
 
     public ArrayList<Revision> parse(InputStream jsonInputStream) {
@@ -23,8 +23,10 @@ public class RevisionParser {
             jsonArray = entryObject.getAsJsonArray("revisions");
         }
 
-        ArrayList<Revision> revisions = convertToRevisionArray(jsonArray);
-        return revisions;
+        if (jsonArray != null) {
+            return convertToRevisionArray(jsonArray);
+        }
+        return null;
     }
 
     public ArrayList<Revision> convertToRevisionArray(JsonArray jsonArray) {
