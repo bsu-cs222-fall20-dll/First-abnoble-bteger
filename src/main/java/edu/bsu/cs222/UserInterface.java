@@ -14,8 +14,8 @@ public class UserInterface {
     public void showMostRecentRevisions(ArrayList<Revision> revisions) {
         System.out.println("Here are the most recent changes to the page:");
         for (int i = 0; i < revisions.size(); i++) {
-            System.out.println(String.format("\t%d.)\t%s", i+1, revisions.get(i).getUser()));
-            System.out.println(String.format("\t    \t%s\n", revisions.get(i).getTimeStamp()));
+            System.out.printf("\t%d.)\t%s\n", i+1, revisions.get(i).getUser());
+            System.out.printf("\t    \t%s\n\n", revisions.get(i).getTimeStamp());
         }
     }
 
@@ -25,6 +25,7 @@ public class UserInterface {
 
     public void showRedirection(String original, String redirected) {
         System.out.printf("Search was redirected from %s to %s\n", original, redirected);
+        System.out.println();
     }
 }
 

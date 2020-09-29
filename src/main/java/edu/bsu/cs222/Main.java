@@ -10,17 +10,16 @@ public class Main {
         UserInterface userInterface = new UserInterface();
         String search = userInterface.requestWikiSearch();
 
-        Search searcher = new Search();
-        URL getRequest = searcher.generateHTTPRequest(search);
         WikiConnection wikiConnection = new WikiConnection();
-        InputStream inputStream = wikiConnection.sendGetRequest(getRequest);
+        URL getRequest = wikiConnection.generateHTTPRequest(search);
+        InputStream inputStream = wikiConnection.pullRevisionData(getRequest);
         RevisionParser parser = new RevisionParser();
         ArrayList<Revision> revisions = parser.parse(inputStream);
 
-        InputStream inputStreamReset = wikiConnection.sendGetRequest(getRequest);
+        InputStream inputStreamReset = wikiConnection.pullRevisionData(getRequest);
         String redirected = parser.checkIsRedirected(inputStreamReset);
 
-        if (redirected != "") {
+        if (!redirected.equals("")) {
             userInterface.showRedirection(search, redirected);
         }
 

@@ -11,6 +11,7 @@ import java.util.Map;
 public class RevisionParser {
     private JsonParser parser = new JsonParser();
 
+
     public ArrayList<Revision> parse(InputStream jsonInputStream) {
         Reader reader = new InputStreamReader(jsonInputStream);
         JsonElement rootElement = parser.parse(reader);
@@ -42,9 +43,9 @@ public class RevisionParser {
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         if (rootObject.getAsJsonObject("query").has("redirects")) {
-            JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
-            JsonObject toFrom = redirects.get(0).getAsJsonObject();
-            JsonPrimitive redirectedTo = toFrom.getAsJsonPrimitive("to");
+            JsonArray redirectionData = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
+            JsonObject toAndFrom = redirectionData.get(0).getAsJsonObject();
+            JsonPrimitive redirectedTo = toAndFrom.getAsJsonPrimitive("to");
             return redirectedTo.getAsString();
         }
         return "";
