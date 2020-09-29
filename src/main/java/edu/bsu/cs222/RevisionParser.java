@@ -11,7 +11,6 @@ import java.util.Map;
 public class RevisionParser {
     private final JsonParser parser = new JsonParser();
 
-
     public ArrayList<Revision> parse(InputStream jsonInputStream) {
         Reader reader = new InputStreamReader(jsonInputStream);
         JsonElement rootElement = parser.parse(reader);

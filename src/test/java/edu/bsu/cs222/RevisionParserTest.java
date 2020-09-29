@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 public class RevisionParserTest {
-    RevisionParser parser = new RevisionParser();
+    private final RevisionParser PARSER = new RevisionParser();
 
     @Test
     public void testParse(){
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        ArrayList<Revision> revisions = parser.parse(sampleInputStream);
+        ArrayList<Revision> revisions = PARSER.parse(sampleInputStream);
         Assertions.assertEquals(4, revisions.size());
     }
 
@@ -51,7 +51,7 @@ public class RevisionParserTest {
     @Test
     public void testCheckIsRedirected() {
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
-        String redirectedSearch = parser.checkIsRedirected(sampleInputStream);
+        String redirectedSearch = PARSER.checkIsRedirected(sampleInputStream);
         Assertions.assertEquals("Frank Zappa", redirectedSearch);
     }
 }

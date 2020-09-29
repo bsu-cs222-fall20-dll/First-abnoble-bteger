@@ -9,10 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestWikiConnection {
-    String SAMPLE_GET_REQUEST = "https://en.wikipedia.org/w/api.php?" +
-            "action=query&format=json&" +
-            "prop=revisions&titles=Zappa&" +
-            "rvprop=timestamp|user&rvlimit=20&redirects";
 
     @Test
     public void sendGetRequestTest() throws IOException {
@@ -29,6 +25,10 @@ public class TestWikiConnection {
     public void generateHTTPRequestTest() throws MalformedURLException {
         WikiConnection wikiConnection = new WikiConnection();
         URL getRequest = wikiConnection.generateHTTPRequest("Zappa");
+        String SAMPLE_GET_REQUEST = "https://en.wikipedia.org/w/api.php?" +
+                "action=query&format=json&" +
+                "prop=revisions&titles=Zappa&" +
+                "rvprop=timestamp|user&rvlimit=20&redirects";
         Assertions.assertEquals(SAMPLE_GET_REQUEST, getRequest.toString());
     }
 }
