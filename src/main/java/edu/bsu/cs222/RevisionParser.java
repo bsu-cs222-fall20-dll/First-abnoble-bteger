@@ -24,25 +24,18 @@ public class RevisionParser {
             jsonArray = entryObject.getAsJsonArray("revisions");
         }
 
-        ArrayList<String> newArray = convert(jsonArray);
-
-        // 0      1    2      3   ...
-        // user1, ts1, user2, ts2 --> revision(user1, ts1), revision(user2, ts2)
-        ArrayList<Revision> revisions = new ArrayList<>();
-        for (int i = 0; i < newArray.size(); i++) {
-            Revision revision = new Revision(newArray.get(i), newArray.get(++i));
-            revisions.add(revision);
-        }
+        ArrayList<Revision> revisions = convertToRevisionArray(jsonArray);
         return revisions;
     }
 
-    public ArrayList<String> convert(JsonArray jsonArray) {
-        ArrayList<String> userData = new ArrayList<>();
-        for (JsonElement user: jsonArray) {
-            userData.add(user.getAsJsonObject().get("user").toString());
-            userData.add(user.getAsJsonObject().get("timestamp").toString());
-            // .toString method returns strings in the format of "\"Bteger\""
+    public ArrayList<Revision> convertToRevisionArray(JsonArray jsonArray) {
+        ArrayList<Revision> revisions = new ArrayList<>();
+
+        for (JsonElement revision: jsonArray) {
+            String username = revision.getAsJsonObject().get("user").toString();
+            String timestamp = revision.getAsJsonObject().get("timestamp").toString();
+            revisions.add(new Revision(username, timestamp));
         }
-        return userData;
+        return revisions;
     }
 }

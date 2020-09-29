@@ -38,12 +38,13 @@ public class RevisionParserTest {
         jsonArray.add(sampleUser2);
         jsonArray.add(sampleUser3);
 
-        ArrayList<String> userData = parser.convert(jsonArray);
-        Assertions.assertEquals("\"Josh\"", userData.get(0));
-        Assertions.assertEquals("\"123\"", userData.get(1));
-        Assertions.assertEquals("\"Ben\"", userData.get(2));
-        Assertions.assertEquals("\"456\"", userData.get(3));
-        Assertions.assertEquals("\"Sam\"", userData.get(4));
-        Assertions.assertEquals("\"789\"", userData.get(5));
+        ArrayList<Revision> revisions = parser.convertToRevisionArray(jsonArray);
+        Assertions.assertEquals(3, revisions.size());
+        Assertions.assertEquals("\"Josh\"", revisions.get(0).getUser());
+        Assertions.assertEquals("\"123\"", revisions.get(0).getTimeStamp());
+        Assertions.assertEquals("\"Ben\"", revisions.get(1).getUser());
+        Assertions.assertEquals("\"456\"", revisions.get(1).getTimeStamp());
+        Assertions.assertEquals("\"Sam\"", revisions.get(2).getUser());
+        Assertions.assertEquals("\"789\"", revisions.get(2).getTimeStamp());
     }
 }
