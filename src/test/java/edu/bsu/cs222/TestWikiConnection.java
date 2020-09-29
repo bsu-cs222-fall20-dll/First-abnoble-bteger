@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestWikiConnection {
@@ -18,7 +17,7 @@ public class TestWikiConnection {
         URL myUrl = new URL("https://en.wikipedia.org/w/api.php?" +
                 "action=query&format=json&" +
                 "prop=revisions&titles=Zappa&" +
-                "rvprop%20=timestamp|user&rvlimit=4&redirects");
+                "rvprop=timestamp|user&rvlimit=4&redirects");
         HttpURLConnection con = (HttpURLConnection) myUrl.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
@@ -38,7 +37,7 @@ public class TestWikiConnection {
         URL testUrl = new URL("https://en.wikipedia.org/w/api.php?" +
                 "action=query&format=json&" +
                 "prop=revisions&titles=Zappa&" +
-                "rvprop%20=timestamp|user&rvlimit=4&redirects");
+                "rvprop=timestamp|user&rvlimit=4&redirects");
         InputStream inputStream = connection.sendGetRequest(testUrl);
         Assertions.assertNotNull(inputStream);
     }
