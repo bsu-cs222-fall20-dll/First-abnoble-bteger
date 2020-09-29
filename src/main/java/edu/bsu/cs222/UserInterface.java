@@ -1,9 +1,5 @@
 package edu.bsu.cs222;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 

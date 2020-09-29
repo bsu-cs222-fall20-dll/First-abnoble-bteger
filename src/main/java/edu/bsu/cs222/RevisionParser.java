@@ -1,9 +1,7 @@
 package edu.bsu.cs222;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -37,5 +35,18 @@ public class RevisionParser {
             revisions.add(new Revision(username, timestamp));
         }
         return revisions;
+    }
+
+    public String checkIsRedirected(InputStream sampleInputStream) {
+        Reader reader = new InputStreamReader(sampleInputStream);
+        JsonElement rootElement = parser.parse(reader);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        if (rootObject.getAsJsonObject("query").has("redirects")) {
+            JsonArray redirects = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
+            JsonObject toFrom = redirects.get(0).getAsJsonObject();
+            JsonPrimitive redirectedTo = toFrom.getAsJsonPrimitive("to");
+            return redirectedTo.getAsString();
+        }
+        return "";
     }
 }

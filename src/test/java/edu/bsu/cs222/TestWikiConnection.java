@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestWikiConnection {
@@ -32,7 +33,7 @@ public class TestWikiConnection {
     }
 
     @Test
-    public void sendGetRequest() throws IOException {
+    public void sendGetRequestTest() throws IOException {
         WikiConnection connection = new WikiConnection();
         URL testUrl = new URL("https://en.wikipedia.org/w/api.php?" +
                 "action=query&format=json&" +

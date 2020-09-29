@@ -7,13 +7,14 @@ import java.io.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class RevisionParserTest {
+    RevisionParser parser = new RevisionParser();
 
     @Test
     public void testParse(){
-        RevisionParser parser = new RevisionParser();
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         ArrayList<Revision> revisions = parser.parse(sampleInputStream);
         Assertions.assertEquals(4, revisions.size());
@@ -46,5 +47,12 @@ public class RevisionParserTest {
         Assertions.assertEquals("\"456\"", revisions.get(1).getTimeStamp());
         Assertions.assertEquals("\"Sam\"", revisions.get(2).getUser());
         Assertions.assertEquals("\"789\"", revisions.get(2).getTimeStamp());
+    }
+
+    @Test
+    public void testCheckIsRedirected() throws IOException {
+        InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
+        String redirectedSearch = parser.checkIsRedirected(sampleInputStream);
+        Assertions.assertEquals("Frank Zappa", redirectedSearch);
     }
 }

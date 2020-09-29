@@ -9,12 +9,20 @@ public class Main {
     public static void main(String[] args) throws IOException {
         UserInterface userInterface = new UserInterface();
         String search = userInterface.requestWikiSearch();
+
         Search searcher = new Search();
         URL getRequest = searcher.generateHTTPRequest(search);
         WikiConnection wikiConnection = new WikiConnection();
         InputStream inputStream = wikiConnection.sendGetRequest(getRequest);
         RevisionParser parser = new RevisionParser();
         ArrayList<Revision> revisions = parser.parse(inputStream);
+
+        InputStream inputStreamReset = wikiConnection.sendGetRequest(getRequest);
+        String redirected = parser.checkIsRedirected(inputStreamReset);
+
+        if (redirected != "") {
+            userInterface.showRedirection(search, redirected);
+        }
 
         userInterface.showMostRecentRevisions(revisions);
     }
