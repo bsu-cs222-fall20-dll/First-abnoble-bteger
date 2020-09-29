@@ -16,7 +16,7 @@ public class RevisionParserTest {
         RevisionParser parser = new RevisionParser();
         InputStream sampleInputStream = getClass().getClassLoader().getResourceAsStream("sample.json");
         ArrayList<Revision> revisions = parser.parse(sampleInputStream);
-        Assertions.assertEquals(3, revisions.size());
+        Assertions.assertEquals(4, revisions.size());
     }
 
     @Test
