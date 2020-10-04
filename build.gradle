@@ -24,3 +24,6 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
     version = '13.0.2'
 }
+
+//noinspection GroovyUnusedAssignment
+mainClassName = 'edu.bsu.cs222.Main'

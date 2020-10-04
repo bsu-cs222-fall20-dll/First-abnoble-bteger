@@ -10,8 +10,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Main extends Application {
+public class Main extends Application{
     public static void main(String[] args) throws IOException {
+        launch(args);
         UserInterface userInterface = new UserInterface();
         String search = userInterface.requestWikiSearch();
 
@@ -32,9 +33,8 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(new Label("Hello"));
-        primaryStage.setScene(scene);
+    public void start(Stage primaryStage) {
+        primaryStage.setScene(new Scene(new Label("Hello")));
         primaryStage.show();
     }
 }
