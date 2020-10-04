@@ -4,7 +4,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-group 'edu.bsu.cs222.wikipedia'
+group 'edu.bsu.cs222'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -22,7 +22,5 @@ test {
 
 javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
-    version = '14.0.2.1'
+    version = '13.0.2'
 }
-
-mainClassName = 'edu.bsu.cs222.Main'
