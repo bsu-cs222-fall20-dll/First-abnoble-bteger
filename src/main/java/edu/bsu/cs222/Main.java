@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -39,11 +40,13 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) {
         Label searchLabel = new Label("Orwellian News Service Wiki Searcher");
-        TextField searchBar = new TextField("Enter your search here");
+        TextField searchBar = new TextField();
+        Button searchButton = new Button("Search");
+        TextArea resultArea = new TextArea();
+        searchButton.setOnAction(event -> resultArea.setText(searchBar.getText()));
 
-        Button SearchButton = new Button("Search");
 
-        VBox parent = new VBox(searchLabel, searchBar, SearchButton);
+        VBox parent = new VBox(searchLabel, searchBar, searchButton, resultArea);
         parent.setAlignment(Pos.TOP_CENTER);
 
         primaryStage.setScene(new Scene(parent));

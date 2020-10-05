@@ -1,15 +1,13 @@
 package edu.bsu.cs222;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class UserInterface {
-    private static final Scanner scanner = new Scanner(System.in);
 
-    public String requestWikiSearch() {
-        System.out.println("Enter the name of a Wiki page");
-        return scanner.nextLine();
-    }
+
+   public String requestWikiSearch() {
+       return null;
+   }
 
     public void showMostRecentRevisions(ArrayList<Revision> revisions) {
         System.out.println("Here are the most recent changes to the page:");
