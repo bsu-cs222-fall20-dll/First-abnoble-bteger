@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class RevisionParser {
-    private final JsonParser parser = new JsonParser();
+    private final JsonParser PARSER = new JsonParser();
 
     public ArrayList<Revision> parse(InputStream jsonInputStream) {
         Reader reader = new InputStreamReader(jsonInputStream);
-        JsonElement rootElement = parser.parse(reader);
+        JsonElement rootElement = PARSER.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray jsonArray = null;
@@ -41,7 +41,7 @@ public class RevisionParser {
 
     public String checkIsRedirected(InputStream sampleInputStream) {
         Reader reader = new InputStreamReader(sampleInputStream);
-        JsonElement rootElement = parser.parse(reader);
+        JsonElement rootElement = PARSER.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         if (rootObject.getAsJsonObject("query").has("redirects")) {
             JsonArray redirectionData = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");

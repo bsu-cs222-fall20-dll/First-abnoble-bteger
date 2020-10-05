@@ -1,1 +1,58 @@
-{"warnings":{"main":{"*":"Unrecognized parameter: rvprop_."}},"continue":{"rvcontinue":"20200921092233|979537490","continue":"||"},"query":{"redirects":[{"from":"Zappa","to":"Frank Zappa"}],"pages":{"10672":{"pageid":10672,"ns":0,"title":"Frank Zappa","revisions":[{"revid":980870852,"parentid":980870619,"user":"Chenopodiaceous","timestamp":"2020-09-28T23:30:08Z","comment":"Fix misplaced modifier"},{"revid":980870619,"parentid":980619779,"user":"Chenopodiaceous","timestamp":"2020-09-28T23:27:35Z","comment":"Remove redundant \"significant\""},{"revid":980619779,"parentid":979552712,"minor":"","user":"Davenold","timestamp":"2020-09-27T14:29:15Z","comment":"/* Accident, attack, and aftermath */ changed wheelchair \"confinement\" language"},{"revid":979552712,"parentid":979537490,"user":"DVdm","timestamp":"2020-09-21T11:32:46Z","comment":"Reverted 1 edit by [[Special:Contributions/179.53.16.150|179.53.16.150]] ([[User talk:179.53.16.150|talk]]): No need to alter serial comma style. See [[MOS:SERIAL]]: \"Editors may use either convention so long as each article is internally consistent.\" See also [[MOS:STYLERET]]."}]}}}}
+{
+  "warnings":
+  {
+    "main":
+    {
+      "*":"Unrecognized parameter: rvprop_."
+    }
+  },
+  "continue":
+  {
+    "rvcontinue":"20200921092233|979537490",
+    "continue":"||"
+  },
+  "query":
+  {
+    "redirects":
+    [
+      {
+        "from":"Zappa",
+        "to":"Frank Zappa"
+      }
+    ],
+    "pages":
+    {
+      "10672":
+      {
+        "pageid":10672,
+        "ns":0,
+        "title":"Frank Zappa",
+        "revisions":
+        [
+          {
+            "revid":980870852,
+            "parentid":980870619,
+            "user":"Chenopodiaceous",
+            "timestamp":"2020-09-28T23:30:08Z",
+            "comment":"Fix misplaced modifier"
+          },
+          {
+            "revid":980870619,
+            "parentid":980619779,
+            "user":"Chenopodiaceous",
+            "timestamp":"2020-09-28T23:27:35Z",
+            "comment":"Remove redundant \"significant\""
+          },
+          {
+            "revid":980619779,
+            "parentid":979552712,
+            "minor":"",
+            "user":"Davenold",
+            "timestamp":"2020-09-27T14:29:15Z",
+            "comment":"/* Accident, attack, and aftermath */ changed wheelchair \"confinement\" language"
+          },
+          {
+            "revid":979552712,
+            "parentid":979537490,
+            "user":"DVdm",
+            "timestamp":"2020-09-21T11:32:46Z","comment":"Reverted 1 edit by [[Special:Contributions/179.53.16.150|179.53.16.150]] ([[User talk:179.53.16.150|talk]]): No need to alter serial comma style. See [[MOS:SERIAL]]: \"Editors may use either convention so long as each article is internally consistent.\" See also [[MOS:STYLERET]]."}]}}}}
