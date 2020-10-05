@@ -1,8 +1,12 @@
 package edu.bsu.cs222;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,7 +38,17 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(new Scene(new Label("Hello")));
+        Label searchLabel = new Label("Orwellian News Service Wiki Searcher");
+        TextField searchBar = new TextField("Enter your search here");
+
+        Button SearchButton = new Button("Search");
+
+        VBox parent = new VBox(searchLabel, searchBar, SearchButton);
+        parent.setAlignment(Pos.TOP_CENTER);
+
+        primaryStage.setScene(new Scene(parent));
+        primaryStage.setHeight(300);
+        primaryStage.setWidth(400);
         primaryStage.show();
     }
 }
