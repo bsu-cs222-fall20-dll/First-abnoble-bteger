@@ -20,6 +20,9 @@ public class RevisionParser {
 
         for (Map.Entry<String,JsonElement> entry: pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
+            if (entryObject.has("\"-1\"")) {
+                return null;
+            }
             jsonArray = entryObject.getAsJsonArray("revisions");
         }
 

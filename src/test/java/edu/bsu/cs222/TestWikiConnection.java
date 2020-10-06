@@ -13,6 +13,7 @@ public class TestWikiConnection {
             "action=query&format=json&" +
             "prop=revisions&titles=Zappa&" +
             "rvprop=timestamp|user&rvlimit=20&redirects";
+
     @Test
     public void pullRevisionDataTest() throws IOException {
         Assertions.assertNotNull(CONNECTION.pullRevisionData(new URL(SAMPLE_URL_STRING)));

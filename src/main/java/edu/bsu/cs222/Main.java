@@ -63,7 +63,6 @@ public class Main extends Application{
         RevisionParser parser = new RevisionParser();
         String redirectedSearch;
         String redirectedMessage = "";
-        String noConnectionMessage = "";
 
         if (search.isEmpty()) {
             return null;
@@ -79,8 +78,11 @@ public class Main extends Application{
 
             InputStream refreshedInputStream = wikiConnection.pullRevisionData(getRequest);
 
-            // If no page, revisions should be null
             ArrayList<Revision> revisions = parser.parse(refreshedInputStream);
+
+            if (revisions == null) {
+                return generateNoPageFoundMessage();
+            }
 
             if (!redirectedSearch.isEmpty()) {
                 redirectedMessage = generateRedirectedMessage(search, redirectedSearch);
@@ -88,6 +90,10 @@ public class Main extends Application{
 
             return redirectedMessage + formatRevisions(revisions);
         }
+    }
+
+    private String generateNoPageFoundMessage() {
+        return "No page found";
     }
 
     private String generateNoConnectionMessage() {

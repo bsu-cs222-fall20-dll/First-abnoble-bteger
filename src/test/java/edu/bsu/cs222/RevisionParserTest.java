@@ -4,6 +4,7 @@ import com.google.gson.*;
 
 import java.io.*;
 
+import com.sun.javafx.scene.paint.GradientUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,12 @@ public class RevisionParserTest {
     public void testParseSize(){
         ArrayList<Revision> revisions = PARSER.parse(SAMPLE_INPUT_STREAM);
         Assertions.assertEquals(4, revisions.size());
+    }
+
+    @Test
+    public void testParseMissingPage() {
+        InputStream inputStream = getClass().getClassLoader(). getResourceAsStream("missingPage.json");
+        Assertions.assertNull(PARSER.parse(inputStream));
     }
 
     @Test
