@@ -54,10 +54,6 @@ public class Main extends Application{
         return searchButton;
     }
 
-    private void printResults(String formattedResults) {
-        resultArea.setText(formattedResults);
-    }
-
     private String searchWiki(String search) throws IOException {
         WikiConnection wikiConnection = new WikiConnection();
         RevisionParser parser = new RevisionParser();
@@ -92,12 +88,8 @@ public class Main extends Application{
         }
     }
 
-    private String generateNoPageFoundMessage() {
-        return "No page found";
-    }
-
-    private String generateNoConnectionMessage() {
-        return "Failed to connect to Wikipedia";
+    private void printResults(String formattedResults) {
+        resultArea.setText(formattedResults);
     }
 
     private String formatRevisions(ArrayList<Revision> revisions) {
@@ -108,6 +100,15 @@ public class Main extends Application{
         }
         return result.toString();
     }
+
+    private String generateNoPageFoundMessage() {
+        return "No page found";
+    }
+
+    private String generateNoConnectionMessage() {
+        return "Failed to connect to Wikipedia";
+    }
+
 
     private String generateRedirectedMessage(String original, String redirection) {
         return String.format("Search was redirected from %s to %s\n", original, redirection);
