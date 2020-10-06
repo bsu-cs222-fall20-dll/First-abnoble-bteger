@@ -17,6 +17,7 @@ public class RevisionParser {
         JsonObject rootObject = rootElement.getAsJsonObject();
         JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
         JsonArray jsonArray = null;
+
         for (Map.Entry<String,JsonElement> entry: pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
             jsonArray = entryObject.getAsJsonArray("revisions");

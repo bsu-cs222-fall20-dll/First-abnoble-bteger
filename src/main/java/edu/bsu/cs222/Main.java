@@ -59,30 +59,39 @@ public class Main extends Application{
     }
 
     private String searchWiki(String search) throws IOException {
+        WikiConnection wikiConnection = new WikiConnection();
+        RevisionParser parser = new RevisionParser();
+        String redirectedSearch;
+        String redirectedMessage = "";
+        String noConnectionMessage = "";
+
         if (search.isEmpty()) {
             return null;
         }
 
-        WikiConnection wikiConnection = new WikiConnection();
-        RevisionParser parser = new RevisionParser();
-        String redirectedSearch;
-
         URL getRequest = wikiConnection.generateHTTPRequest(search);
-        InputStream inputStream = wikiConnection.pullRevisionData(getRequest);
+        InputStream initialInputStream = wikiConnection.pullRevisionData(getRequest);
 
-        redirectedSearch = parser.checkIsRedirected(inputStream);
-
-        InputStream inputStream1 = wikiConnection.pullRevisionData(getRequest);
-        ArrayList<Revision> revisions = parser.parse(inputStream1);
-
-        String redirectedMessage;
-        if (!redirectedSearch.isEmpty()) {
-            redirectedMessage = generateRedirectedMessage(search, redirectedSearch);
+        if (initialInputStream == null) {
+            return generateNoConnectionMessage();
         } else {
-            redirectedMessage = "";
-        }
+            redirectedSearch = parser.checkIsRedirected(initialInputStream);
 
-        return redirectedMessage + formatRevisions(revisions);
+            InputStream refreshedInputStream = wikiConnection.pullRevisionData(getRequest);
+
+            // If no page, revisions should be null
+            ArrayList<Revision> revisions = parser.parse(refreshedInputStream);
+
+            if (!redirectedSearch.isEmpty()) {
+                redirectedMessage = generateRedirectedMessage(search, redirectedSearch);
+            }
+
+            return redirectedMessage + formatRevisions(revisions);
+        }
+    }
+
+    private String generateNoConnectionMessage() {
+        return "Failed to connect to Wikipedia";
     }
 
     private String formatRevisions(ArrayList<Revision> revisions) {

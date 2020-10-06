@@ -9,16 +9,19 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class WikiConnection {
-
-    public InputStream pullRevisionData(URL testUrl) throws IOException {
-        if (testUrl == null) {
+    public InputStream pullRevisionData(URL wikiPage) {
+        if (wikiPage == null) {
             return null;
         }
 
-        HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
-        return connection.getInputStream();
+        try {
+            HttpURLConnection connection = (HttpURLConnection) wikiPage.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
+            return connection.getInputStream();
+        } catch (IOException e) {
+            return null;
+        }
     }
 
     public URL generateHTTPRequest(String search) throws MalformedURLException {
