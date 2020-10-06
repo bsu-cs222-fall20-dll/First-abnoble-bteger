@@ -59,12 +59,30 @@ public class Main extends Application{
     }
 
     private String searchWiki(String search) throws IOException {
+        if (search.isEmpty()) {
+            return null;
+        }
+
         WikiConnection wikiConnection = new WikiConnection();
+        RevisionParser parser = new RevisionParser();
+        String redirectedSearch;
+
         URL getRequest = wikiConnection.generateHTTPRequest(search);
         InputStream inputStream = wikiConnection.pullRevisionData(getRequest);
-        RevisionParser parser = new RevisionParser();
-        ArrayList<Revision> revisions = parser.parse(inputStream);
-        return formatRevisions(revisions);
+
+        redirectedSearch = parser.checkIsRedirected(inputStream);
+
+        InputStream inputStream1 = wikiConnection.pullRevisionData(getRequest);
+        ArrayList<Revision> revisions = parser.parse(inputStream1);
+
+        String redirectedMessage;
+        if (!redirectedSearch.isEmpty()) {
+            redirectedMessage = generateRedirectedMessage(search, redirectedSearch);
+        } else {
+            redirectedMessage = "";
+        }
+
+        return redirectedMessage + formatRevisions(revisions);
     }
 
     private String formatRevisions(ArrayList<Revision> revisions) {
@@ -74,6 +92,10 @@ public class Main extends Application{
             result.append(String.format("\t    \t%s\n\n", revisions.get(i).getTimeStamp()));
         }
         return result.toString();
+    }
+
+    private String generateRedirectedMessage(String original, String redirection) {
+        return String.format("Search was redirected from %s to %s\n", original, redirection);
     }
 }
 

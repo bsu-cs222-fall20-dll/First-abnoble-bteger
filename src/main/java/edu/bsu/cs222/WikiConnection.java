@@ -11,6 +11,10 @@ import java.nio.charset.StandardCharsets;
 public class WikiConnection {
 
     public InputStream pullRevisionData(URL testUrl) throws IOException {
+        if (testUrl == null) {
+            return null;
+        }
+
         HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (bteger@bsu.edu)");
@@ -18,6 +22,10 @@ public class WikiConnection {
     }
 
     public URL generateHTTPRequest(String search) throws MalformedURLException {
+        if (search.isEmpty()) {
+            return null;
+        }
+
         String encodedSearch = URLEncoder.encode(search, StandardCharsets.UTF_8);
         return new URL("https://en.wikipedia.org/w/api.php?" +
                 "action=query&format=json&" +
