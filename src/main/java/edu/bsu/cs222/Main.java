@@ -16,16 +16,37 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Main extends Application{
-    TextField searchBar;
-    TextArea resultArea;
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch(args);
+        UserInterface userInterface = new UserInterface();
+        String search = userInterface.requestWikiSearch();
+
+        WikiConnection wikiConnection = new WikiConnection();
+        URL getRequest = wikiConnection.generateHTTPRequest(search);
+        InputStream inputStream = wikiConnection.pullRevisionData(getRequest);
+        RevisionParser parser = new RevisionParser();
+        ArrayList<Revision> revisions = parser.parse(inputStream);
+
+        InputStream inputStreamReset = wikiConnection.pullRevisionData(getRequest);
+        String redirected = parser.checkIsRedirected(inputStreamReset);
+
+        if (!redirected.equals("")) {
+            userInterface.showRedirection(search, redirected);
+        }
+
+        userInterface.showMostRecentRevisions(revisions);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        VBox parent = createUI();
+        Label searchLabel = new Label("Orwellian News Service Wiki Searcher");
+        TextField searchBar = new TextField();
+        Button searchButton = new Button("Search");
+        TextArea resultArea = new TextArea();
+        searchButton.setOnAction(event -> resultArea.setText(searchBar.getText()));
+
+
+        VBox parent = new VBox(searchLabel, searchBar, searchButton, resultArea);
         parent.setAlignment(Pos.TOP_CENTER);
 
         primaryStage.setScene(new Scene(parent));
@@ -33,47 +54,4 @@ public class Main extends Application{
         primaryStage.setWidth(400);
         primaryStage.show();
     }
-
-    private VBox createUI() {
-        Label searchLabel = new Label("Orwellian News Service Wiki Searcher");
-        searchBar = new TextField();
-        resultArea = new TextArea();
-        Button searchButton = createSearchButton();
-        return new VBox(searchLabel, searchBar, searchButton, resultArea);
-    }
-
-    private Button createSearchButton() {
-        Button searchButton = new Button("Search");
-        searchButton.setOnAction(event -> {
-            try {
-                printResults(searchWiki(searchBar.getText()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        return searchButton;
-    }
-
-    private void printResults(String formattedResults) {
-        resultArea.setText(formattedResults);
-    }
-
-    private String searchWiki(String search) throws IOException {
-        WikiConnection wikiConnection = new WikiConnection();
-        URL getRequest = wikiConnection.generateHTTPRequest(search);
-        InputStream inputStream = wikiConnection.pullRevisionData(getRequest);
-        RevisionParser parser = new RevisionParser();
-        ArrayList<Revision> revisions = parser.parse(inputStream);
-        return formatRevisions(revisions);
-    }
-
-    private String formatRevisions(ArrayList<Revision> revisions) {
-        StringBuilder result = new StringBuilder("Here are the most recent revisions to the page: \n");
-        for (int i = 0; i < revisions.size(); i++) {
-            result.append(String.format("\t%d.)\t%s\n", i + 1, revisions.get(i).getUser()));
-            result.append(String.format("\t    \t%s\n\n", revisions.get(i).getTimeStamp()));
-        }
-        return result.toString();
-    }
 }
-
